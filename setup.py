@@ -1,9 +1,10 @@
 from setuptools import setup, find_packages
-from distutils.command.clean import clean
+from distutils.cmd import Command
 import os
 
+# ['https://download.pytorch.org/whl/torch_stable.html']
 install_requirements = [i.replace('\n','') for i in open('./requirements.txt').readlines()]
-    
+
 classifiers = [
     'Development Status :: 4 - Beta',
     'Intended Audience :: Developers',
@@ -12,11 +13,9 @@ classifiers = [
     'Programming Language :: Python :: 3'
 ]
 
-os.system('pip install -r requirements.txt --find-links https://download.pytorch.org/whl/torch_stable.html')
-
 setup(
     name = 'bert-embeddings',
-    version = '0.0.1',
+    version = '0.0.8',
     description = 'Create positional embeddings based on TinyBERT or similar bert models',
     long_description = 'Bert Embeddings\n Use this library to really easily embed text using Bert Models.\n\n Github: https://github.com/sorcely/BertEmbeddings ' + '\n\n' + open('CHANGELOG.txt').read(),
     url = 'https://github.com/Sorcely/EmbeddingsLib',
@@ -26,4 +25,5 @@ setup(
     classifiers = classifiers,
     keywords = 'embeddings',
     packages = find_packages(),
+    install_requires = install_requirements,
 )

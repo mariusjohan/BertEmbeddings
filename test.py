@@ -1,5 +1,5 @@
 import unittest
-import __init__ as main
+import BertEmbeddings as main
 
 import torch
 
@@ -17,7 +17,7 @@ class EmbeddingsTests(unittest.TestCase):
         bert_embeddings_output = bert_embeddings([context]*2)
         t1 = time()
 
-        self.assertTrue(expr = t1-t0 < 0.1, msg = f'The bert_embeddings output wasn\'t fast enough. It took {t1-t0}sec when supposed to take 0.1sec')
+        self.assertTrue(expr = t1-t0 < 0.1, msg = f'The bert_embeddings output wasn\'t fast enough. It took {t1-t0}sec when supposed to take 0.1sec. Maybe try again')
 
         contexts = bert_embeddings_output
         c_tokens0 = contexts[0]['tokens']

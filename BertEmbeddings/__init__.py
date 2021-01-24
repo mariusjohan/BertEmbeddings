@@ -1,5 +1,11 @@
-import torch
-from torch import nn
+try:
+    import torch
+    from torch import nn
+except Exception as e:
+    print(e)
+    print()
+    print('You\'ll probably need to install Torch inorder to use this library.\nUse: `pip install torch==1.5.0 -f https://download.pytorch.org/whl/torch_stable.html`')
+    quit()
 
 import transformers
 from transformers import BertModel, BertTokenizer

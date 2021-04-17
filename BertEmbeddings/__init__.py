@@ -63,23 +63,28 @@ class BertEmbeddings:
 
         # Turn into byte-pair tokens
         # E.g ["hello", "how", "##'re", "you"]
-        inputs_tokens = [self.tokenizer.tokenize(i) for i in inputs]
-        inputs_sentence_tokens = []
-        for input_tokens in inputs_tokens:
-            input_sentence_tokens = []
+        tokenized_inputs = [self.tokenizer.tokenize(i) for i in inputs]
+
+        # Generate a list of sentences (a list of word tokens)
+        # list[list[str]]
+        inputs_sentences = []
+        for _input in tokenized_inputs:
+            _input_sentence_tokens = []
             current_sentence = []
-            for tok in input_tokens:
-                current_sentence.append(tok)
-                if tok == '.':
-                    input_sentence_tokens.append(current_sentence)
+            for token in _input:
+                if token == '.':
+                    _input_sentence_tokens.append(current_sentence)
                     current_sentence = []
-            inputs_sentence_tokens.append(inputs_sentence_tokens)
+                else:
+                    current_sentence.append(token)
+            inputs_sentences.append(_input_sentence_tokens)
         
         # Permute the data
         inputs_ = []
-        for i in range(len(inputs_tokens)):
-            i_tokens = inputs_tokens[i]
-            i_sentence_tokens = inputs_sentence_tokens[i]
+        for i in range(len(inputs)):
+            i_tokens = tokenized_inputs[i]
+            i_sentence_tokens = inputs_sentences[i]
+            print(i_sentence_tokens)
             i_hidden_states = hidden_states[i]
             inputs_.append({
                 'tokens': i_tokens,
